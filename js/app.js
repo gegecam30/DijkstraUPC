@@ -118,13 +118,14 @@ function onModeChange() {
     emptyClick: onCanvasClick, edgeDrawn: onEdgeDrawn, deleteNode: onDeleteNode, deleteEdge: onDeleteEdge,
   } : null);
   if (drawing) {
-    $("hint").textContent = "Clic: nodo • Arrastrar: arista • Shift: mover • Clic der.: borrar";
+    $("hint").textContent = "Clic: nodo • Arrastrar: arista • Mover y Borrar: botones, Shift o clic der.";
     $("drawButtons").hidden = false;
     if (!S.graph.edges().length) newCanvas();
     else refreshCombos(S.graph.labels);
   } else {
     $("hint").textContent = "(Ctrl + rueda para zoom • Arrastra para mover)";
     $("drawButtons").hidden = true;
+    setTool("default");
     refreshCombos(LABELS.slice(0, readN()));
   }
   updateRunState();
@@ -299,6 +300,13 @@ async function onFinishManual() {
   showManualPanel(false);
   finishGraphSetup();
 }
+
+function setTool(tool) {
+  view.setTool(tool);
+  $("toolMove").setAttribute("aria-pressed", String(tool === "move"));
+  $("toolDelete").setAttribute("aria-pressed", String(tool === "delete"));
+}
+const toggleTool = (tool) => setTool(view.tool === tool ? "default" : tool);
 
 // ------------------------------------------------------------------ guardar / cargar
 function onSave() {
@@ -514,6 +522,8 @@ $("targetSel").onchange = resetExecution;
 $("zoomIn").onclick = () => view.zoomIn();
 $("zoomOut").onclick = () => view.zoomOut();
 $("zoomReset").onclick = () => view.resetZoom();
+$("toolMove").onclick = () => toggleTool("move");
+$("toolDelete").onclick = () => toggleTool("delete");
 $("autoLayout").onclick = onAutoLayout;
 $("clearCanvas").onclick = newCanvas;
 $("addEdge").onclick = onAddEdge;

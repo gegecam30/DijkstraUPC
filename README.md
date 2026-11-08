@@ -25,6 +25,11 @@ tests/            pruebas con node:test
 assets/           íconos y avatares
 ```
 
+## Cambiar íconos y banner
+- **Autores:** los archivos están en `assets/avatars/` (`manuel-herrera.png`, `santiago-ceron.png`, `piero-bobadilla.png`, `gengis-cam-pizarro.jpg`, `nicolas-nima.jpg`). Para cambiar un ícono, reemplaza el archivo con el mismo nombre. Para agregar un perfil de GitHub, añade un enlace en la sección `#autores` de `index.html`.
+- **Proyecto destacado:** el banner de PexRead vive en `assets/ads/pexread/` y se muestra en el primer espacio de la barra lateral.
+- **Teléfono:** el sitio se adapta a pantallas angostas. En el modo Dibujo, los botones Mover y Borrar reemplazan a Shift y al clic derecho.
+
 ## Ejecutar en local
 No necesita compilación. Hay que servir la carpeta con cualquier servidor estático:
 

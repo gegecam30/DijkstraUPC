@@ -38,6 +38,7 @@ export class GraphView {
     this.handlers = {};
     this.gesture = null;
     this.guide = null;
+    this.tool = "default"; // "default" | "move" | "delete" (equivalen a Shift y clic derecho, para pantallas táctiles)
     this.lastRender = {};
     this.size = { w: 600, h: 500 };
 
@@ -196,7 +197,14 @@ export class GraphView {
     this.handlers = handlers || {};
     this.gesture = null;
     this.guide = null;
+    if (!this.editMode) this.setTool("default");
     this.svg.classList.toggle("editing", this.editMode);
+  }
+
+  setTool(tool) {
+    this.tool = tool;
+    this.svg.classList.toggle("tool-move", tool === "move");
+    this.svg.classList.toggle("tool-delete", tool === "delete");
   }
 
   call(name, ...args) { if (this.handlers[name]) this.handlers[name](...args); }
@@ -235,7 +243,7 @@ export class GraphView {
     const [x, y] = this.toData(px, py);
     this.measure();
 
-    if (this.editMode && e.button === 2) {
+    if (this.editMode && (e.button === 2 || (e.button === 0 && this.tool === "delete"))) {
       const node = this.nodeAt(x, y);
       if (node !== null) this.call("deleteNode", node);
       else {
@@ -250,8 +258,9 @@ export class GraphView {
     if (this.editMode && e.button === 0) {
       const node = this.nodeAt(x, y);
       if (node !== null) {
-        this.gesture = { kind: e.shiftKey ? "move" : "edge", node, x0: px, y0: py, moved: false };
-        if (!e.shiftKey) this.guide = { from: [...this.pos[node]], to: [...this.pos[node]] };
+        const moving = e.shiftKey || this.tool === "move";
+        this.gesture = { kind: moving ? "move" : "edge", node, x0: px, y0: py, moved: false };
+        if (!moving) this.guide = { from: [...this.pos[node]], to: [...this.pos[node]] };
         return;
       }
       this.gesture = { kind: "click", x0: px, y0: py, moved: false, xd: x, yd: y,

@@ -102,3 +102,14 @@ select.tk-input { padding: 2px 2px; }
   .tk-canvas { min-height: 380px; }
   .tk-right { padding: 6px; }
 }
+
+/* herramientas del modo dibujo para pantallas táctiles */
+.tk-toggle[aria-pressed="true"] { background: #cce4f7; border-color: var(--w-accent); }
+.tkwin.dark .tk-toggle[aria-pressed="true"] { background: #0d47a1; }
+.tk-canvas.tool-delete { cursor: not-allowed; }
+.tk-canvas.tool-move { cursor: move; }
+@media (max-width: 560px) {
+  .tkwin { border-radius: 0; margin-inline: -16px; border-left: 0; border-right: 0; }
+  .tk-hint { flex-basis: 100%; margin: 2px 0 0; }
+  .tk-draw { margin-left: 0; flex-wrap: wrap; }
+}

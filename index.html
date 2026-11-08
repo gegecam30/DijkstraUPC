@@ -89,6 +89,8 @@
               <button id="zoomReset" class="tk-btn" type="button">Restablecer</button>
               <span id="hint" class="tk-hint"></span>
               <span id="drawButtons" class="tk-draw" hidden>
+                <button id="toolMove" class="tk-btn tk-toggle" type="button" aria-pressed="false">Mover</button>
+                <button id="toolDelete" class="tk-btn tk-toggle" type="button" aria-pressed="false">Borrar</button>
                 <button id="autoLayout" class="tk-btn" type="button">Acomodar</button>
                 <button id="clearCanvas" class="tk-btn" type="button">Limpiar</button>
               </span>
@@ -186,19 +188,35 @@
         <h2>Autores</h2>
         <ul class="people">
           <li>
-            <img src="assets/avatar_gegecam30.jpg" alt="" width="72" height="72">
+            <img src="assets/avatars/manuel-herrera.png" alt="" class="pixel" width="72" height="72">
             <div>
-              <strong>gegecam30</strong>
-              <span>Desarrollo del proyecto</span>
-              <a href="https://github.com/gegecam30">Perfil en GitHub</a>
+              <strong>Manuel Herrera</strong>
             </div>
           </li>
           <li>
-            <img src="assets/avatar_TUXERO1986.jpg" alt="" width="72" height="72">
+            <img src="assets/avatars/gengis-cam-pizarro.jpg" alt="" width="72" height="72">
             <div>
-              <strong>TUXERO1986</strong>
-              <span>Desarrollo del proyecto</span>
-              <a href="https://github.com/TUXERO1986">Perfil en GitHub</a>
+              <strong>Gengis Cam Pizarro</strong>
+              <a href="https://github.com/gegecam30">gegecam30 en GitHub</a>
+            </div>
+          </li>
+          <li>
+            <img src="assets/avatars/santiago-ceron.png" alt="" class="pixel" width="72" height="72">
+            <div>
+              <strong>Santiago Ceron</strong>
+            </div>
+          </li>
+          <li>
+            <img src="assets/avatars/nicolas-nima.jpg" alt="" width="72" height="72">
+            <div>
+              <strong>Nicolas Nima</strong>
+              <a href="https://github.com/TUXERO1986">TUXERO1986 en GitHub</a>
+            </div>
+          </li>
+          <li>
+            <img src="assets/avatars/piero-bobadilla.png" alt="" class="pixel" width="72" height="72">
+            <div>
+              <strong>Piero Bobadilla</strong>
             </div>
           </li>
         </ul>
@@ -208,8 +226,22 @@
     <aside class="rail" aria-label="Proyectos y auspicios">
       <div class="rail-inner">
         <h2><img src="assets/icons/emerald.png" alt="" width="20" height="20">Proyectos y auspicios</h2>
-        <p>Este espacio es para otros proyectos de los autores. Si te interesa colaborar o apoyar alguno, escríbenos por GitHub.</p>
-        <div class="slot"><span>Espacio disponible</span></div>
+        <p>Proyectos de los autores. Si te interesa colaborar o apoyar alguno, escríbenos por GitHub.</p>
+        <article class="ad-card ad-card--pexread">
+          <span class="ad-card__tag">Proyecto destacado</span>
+          <a class="ad-card__banner" href="https://pexread.gexel.fun" target="_blank" rel="noopener"
+             aria-label="PexRead, copiloto de lectura para Perusall: instalar gratis en pexread.gexel.fun">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/ads/pexread/pexread-banner-poster.png"
+                   aria-label="Banner de PexRead: copiloto de lectura para Perusall. Selecciona un párrafo, idea central en segundos, preguntas para el debate, citas del texto y elige tu avatar. Gratis en Chrome en pexread.gexel.fun.">
+              <source src="assets/ads/pexread/pexread-banner.webm" type="video/webm">
+              <source src="assets/ads/pexread/pexread-banner.mp4" type="video/mp4">
+            </video>
+          </a>
+          <div class="ad-card__foot">
+            <span>PexRead · copiloto de lectura para Perusall</span>
+            <a class="ad-card__cta" href="https://pexread.gexel.fun" target="_blank" rel="noopener">Instalar gratis</a>
+          </div>
+        </article>
         <div class="slot"><span>Espacio disponible</span></div>
         <div class="slot slot-small"><span>Espacio disponible</span></div>
         <p class="rail-links"><a href="https://github.com/gegecam30">gegecam30</a><a href="https://github.com/TUXERO1986">TUXERO1986</a></p>
