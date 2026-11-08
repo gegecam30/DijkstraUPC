@@ -46,7 +46,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .site-header nav a:hover { color: var(--ink); border-bottom-color: var(--accent); }
 
 /* ---- cuerpo: contenido y barra lateral */
-.layout { display: grid; grid-template-columns: minmax(0, 1fr) clamp(320px, 30vw, 560px); gap: 32px; padding-block: 36px 56px; align-items: start; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) clamp(280px, 19vw, 330px); gap: 32px; padding-block: 36px 56px; align-items: start; }
 main { min-width: 0; }
 
 .intro { max-width: 70ch; margin-bottom: 24px; }
@@ -77,9 +77,9 @@ h3:first-child { margin-top: 0; }
 
 /* ---- barra lateral de proyectos y auspicios */
 .rail { position: sticky; top: 76px; }
-.rail-inner { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 22px; }
-.rail h2 { display: flex; align-items: center; gap: 8px; font-size: 1.2rem; margin: 0 0 8px; }
-.rail p { margin: 0 0 16px; font-size: 0.95rem; color: var(--muted); }
+.rail-inner { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 18px; }
+.rail h2 { display: flex; align-items: center; gap: 8px; font-size: 1.1rem; margin: 0 0 8px; }
+.rail p { margin: 0 0 14px; font-size: 0.9rem; color: var(--muted); }
 
 /* ---- pie de página */
 .site-footer { background: var(--surface); border-top: 1px solid var(--line); padding-block: 28px 36px; }
@@ -103,14 +103,14 @@ h3:first-child { margin-top: 0; }
 }
 
 /* ---- banner de PexRead (primer espacio de la barra lateral) */
-.ad-card { margin-bottom: 0; border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 10px; padding: 14px; display: grid; gap: 12px;
+.ad-card { margin-bottom: 0; border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 8px; padding: 10px; display: grid; gap: 8px;
   background: linear-gradient(180deg, rgba(16, 185, 129, 0.06), transparent 60%); box-shadow: 0 0 24px rgba(16, 185, 129, 0.08); }
-.ad-card__tag { font-size: 0.95rem; color: #34d399; font-weight: 500; }
+.ad-card__tag { font-size: 0.85rem; color: #34d399; font-weight: 500; }
 .ad-card__banner { display: block; border-radius: 8px; overflow: hidden; line-height: 0; }
 .ad-card__banner video { width: 100%; aspect-ratio: 16 / 9; display: block; image-rendering: auto; }
 .ad-card__banner:focus-visible, .ad-card__cta:focus-visible { outline: 2px solid #34d399; outline-offset: 2px; }
-.ad-card__foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 1rem; color: var(--ink); }
-.ad-card__cta { background: #10b981; color: #07080c; font-weight: 600; font-size: 1rem; padding: 8px 16px; border-radius: 6px; text-decoration: none; }
+.ad-card__foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 0.85rem; color: var(--ink); }
+.ad-card__cta { background: #10b981; color: #07080c; font-weight: 600; font-size: 0.85rem; padding: 5px 12px; border-radius: 6px; text-decoration: none; }
 .ad-card__cta:hover { background: #34d399; }
 @media (prefers-reduced-motion: reduce) {
   .ad-card__banner video { display: none; }
@@ -122,3 +122,11 @@ h3:first-child { margin-top: 0; }
 
 /* ---- autores con ícono pixelado */
 .people img.pixel { image-rendering: pixelated; background: var(--bg); padding: 10px; }
+
+/* cabecera del banner con botón para ocultarlo */
+.ad-card__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ad-card__toggle { width: 24px; height: 24px; display: grid; place-items: center; background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; cursor: pointer; font: 500 1rem/1 var(--sans); padding: 0; }
+.ad-card__toggle:hover { color: var(--ink); border-color: var(--muted); }
+.ad-card__toggle:focus-visible { outline: 2px solid #34d399; outline-offset: 2px; }
+.ad-card.is-collapsed .ad-card__banner, .ad-card.is-collapsed .ad-card__foot { display: none; }
+.ad-card.is-collapsed { padding: 8px 10px; }

@@ -544,3 +544,27 @@ setNavState(false);
 onNChanged();
 onModeChange();
 toggleDark(); // la página y la demo arrancan en modo oscuro
+
+// ------------------------------------------------------------------ banner del proyecto destacado (se puede ocultar)
+(() => {
+  const card = document.querySelector(".ad-card");
+  const btn = $("adToggle");
+  if (!card || !btn) return;
+  const video = card.querySelector("video");
+  const apply = (collapsed) => {
+    card.classList.toggle("is-collapsed", collapsed);
+    btn.setAttribute("aria-expanded", String(!collapsed));
+    btn.innerHTML = collapsed ? "+" : "&minus;";
+    btn.title = collapsed ? "Mostrar" : "Ocultar";
+    btn.setAttribute("aria-label", collapsed ? "Mostrar proyecto destacado" : "Ocultar proyecto destacado");
+    if (video) { if (collapsed) video.pause(); else video.play().catch(() => {}); }
+  };
+  let saved = false;
+  try { saved = localStorage.getItem("adColapsado") === "1"; } catch (e) { /* sin almacenamiento */ }
+  apply(saved);
+  btn.addEventListener("click", () => {
+    const next = !card.classList.contains("is-collapsed");
+    apply(next);
+    try { localStorage.setItem("adColapsado", next ? "1" : "0"); } catch (e) { /* sin almacenamiento */ }
+  });
+})();
