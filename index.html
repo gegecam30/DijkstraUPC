@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DijkstraUPC</title>
+  <meta name="description" content="Demostración web del visualizador de Dijkstra sobre grafos dirigidos acíclicos: genera o dibuja un grafo y sigue cada paso del algoritmo.">
+  <link rel="icon" href="assets/icons/compass_00.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="css/tk.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="#top">
+        <img src="assets/icons/compass_00.png" alt="" width="28" height="28">
+        <span>DijkstraUPC</span>
+      </a>
+      <nav aria-label="Principal">
+        <a href="#demo">Demo</a>
+        <a href="#como">Cómo funciona</a>
+        <a href="#autores">Autores</a>
+        <a href="https://github.com/TUXERO1986/Proyecto_dijkstra_Mate_Computacional">Código</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap layout" id="top">
+    <main>
+      <section class="intro" id="demo">
+        <h1>Dijkstra paso a paso sobre grafos dirigidos acíclicos</h1>
+        <p class="lede">Es la misma aplicación que hicimos en Python, ahora en el navegador. Genera un grafo con reglas, dibújalo con el mouse o escríbelo por formulario, y sigue cada selección y relajación del algoritmo hasta ver todos los caminos mínimos.</p>
+      </section>
+
+      <!-- Ventana de la aplicación: réplica de la interfaz Tkinter -->
+      <div class="tkwin" id="tkwin">
+        <div class="tk-titlebar">
+          <span class="tk-icon" aria-hidden="true"></span>
+          <span class="tk-title">Visualizador de Dijkstra</span>
+          <span class="tk-controls" aria-hidden="true">
+            <svg viewBox="0 0 10 10" width="10" height="10"><path d="M0 5h10" stroke="currentColor" fill="none"/></svg>
+            <svg viewBox="0 0 10 10" width="10" height="10"><rect x=".5" y=".5" width="9" height="9" stroke="currentColor" fill="none"/></svg>
+            <svg viewBox="0 0 10 10" width="10" height="10"><path d="M0 0l10 10M10 0L0 10" stroke="currentColor" fill="none"/></svg>
+          </span>
+        </div>
+
+        <div class="tk-top">
+          <label class="tk-inline">n: <input id="nVar" class="tk-input narrow" type="number" min="7" max="16" value="10"></label>
+          <label class="tk-radio"><input type="radio" name="mode" value="random" checked> Aleatorio</label>
+          <label class="tk-radio"><input type="radio" name="mode" value="manual"> Formulario</label>
+          <label class="tk-radio"><input type="radio" name="mode" value="draw"> Dibujo</label>
+          <button id="genBtn" class="tk-btn" type="button">Generar grafo</button>
+          <span class="tk-gap"></span>
+          <label class="tk-inline">Origen: <select id="sourceSel" class="tk-input"></select></label>
+          <label class="tk-inline">Destino: <select id="targetSel" class="tk-input"></select></label>
+          <button id="runBtn" class="tk-btn" type="button" disabled>Ejecutar Dijkstra</button>
+          <span class="tk-tools">
+            <button id="saveBtn" class="tk-btn" type="button">Guardar</button>
+            <button id="loadBtn" class="tk-btn" type="button">Cargar</button>
+            <button id="themeBtn" class="tk-btn" type="button">Modo Oscuro</button>
+          </span>
+          <input id="fileInput" type="file" accept=".json,application/json" hidden>
+        </div>
+
+        <fieldset class="tk-frame tk-options" id="optionsBar">
+          <legend>Opciones del grafo aleatorio</legend>
+          <div class="tk-row">
+            <label class="tk-check"><input id="forbidDirect" type="checkbox" checked> Prohibir arista directa Origen → Destino</label>
+            <label class="tk-inline">Saltos mínimos: <input id="minHops" class="tk-input narrow" type="number" min="1" max="15" value="4"></label>
+            <label class="tk-inline">Máx. salidas por nodo: <input id="maxOut" class="tk-input narrow" type="number" min="2" max="4" value="3"></label>
+            <label class="tk-inline">Densidad: <select id="density" class="tk-input"><option>Baja</option><option selected>Media</option><option>Alta</option></select></label>
+          </div>
+          <div class="tk-row">
+            <label class="tk-check"><input id="forceTie" type="checkbox"> Forzar empate entre caminos óptimos</label>
+            <label class="tk-inline">Caminos alternativos (mín.): <input id="minPaths" class="tk-input narrow" type="number" min="1" max="20" value="2"></label>
+            <label class="tk-inline">Peso mín.: <input id="wMin" class="tk-input narrow" type="number" min="1" max="99" value="1"></label>
+            <label class="tk-inline">máx.: <input id="wMax" class="tk-input narrow" type="number" min="1" max="99" value="99"></label>
+          </div>
+        </fieldset>
+
+        <div class="tk-main">
+          <div class="tk-left">
+            <div class="tk-zoom">
+              <button id="zoomIn" class="tk-btn" type="button">Acercar</button>
+              <button id="zoomOut" class="tk-btn" type="button">Alejar</button>
+              <button id="zoomReset" class="tk-btn" type="button">Restablecer</button>
+              <span id="hint" class="tk-hint"></span>
+              <span id="drawButtons" class="tk-draw" hidden>
+                <button id="autoLayout" class="tk-btn" type="button">Acomodar</button>
+                <button id="clearCanvas" class="tk-btn" type="button">Limpiar</button>
+              </span>
+            </div>
+            <svg id="graphSvg" class="tk-canvas" role="img" aria-label="Lienzo del grafo"></svg>
+          </div>
+
+          <div class="tk-right">
+            <div id="infoPanel">
+              <fieldset class="tk-frame">
+                <legend>Tabla de distancias</legend>
+                <div class="tk-tablewrap">
+                  <table class="tk-table">
+                    <thead><tr><th>Nodo</th><th>Distancia</th><th>Visitado</th><th>Predecesor(es)</th></tr></thead>
+                    <tbody id="distBody"></tbody>
+                  </table>
+                </div>
+              </fieldset>
+              <fieldset class="tk-frame">
+                <legend>Mensaje del paso actual</legend>
+                <div id="msgBox" class="tk-text msg"></div>
+              </fieldset>
+              <fieldset class="tk-frame grow">
+                <legend>Resultados finales</legend>
+                <div id="resultBox" class="tk-text result"></div>
+                <select id="pathSel" class="tk-input wide"><option>Todos</option></select>
+              </fieldset>
+            </div>
+
+            <fieldset class="tk-frame" id="manualPanel" hidden>
+              <legend>Agregar aristas</legend>
+              <div class="tk-row">
+                <label class="tk-inline">Origen: <select id="edgeFrom" class="tk-input"></select></label>
+                <label class="tk-inline">Destino: <select id="edgeTo" class="tk-input"></select></label>
+                <label class="tk-inline">Peso: <input id="edgeW" class="tk-input narrow" type="text" inputmode="numeric" maxlength="2"></label>
+              </div>
+              <button id="addEdge" class="tk-btn block" type="button">Agregar arista</button>
+              <select id="edgeList" class="tk-list" size="12" aria-label="Aristas agregadas"></select>
+              <button id="removeEdge" class="tk-btn block" type="button">Eliminar arista seleccionada</button>
+              <button id="finishManual" class="tk-btn block" type="button">Finalizar grafo</button>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="tk-nav">
+          <button id="btnReset" class="tk-btn" type="button">Reiniciar</button>
+          <button id="btnPrev" class="tk-btn" type="button">Anterior</button>
+          <button id="btnAuto" class="tk-btn" type="button">Auto</button>
+          <button id="btnNext" class="tk-btn" type="button">Siguiente</button>
+          <button id="btnEnd" class="tk-btn" type="button">Ir al final</button>
+          <span class="tk-spring"></span>
+          <span id="stepLabel">Paso 0 / 0</span>
+        </div>
+      </div>
+
+      <p class="demo-note">Para ver un caso con dos caminos empatados, <a href="#demo" data-load-example>carga el grafo de ejemplo de 8 nodos</a>. También puedes guardar tu grafo como JSON y abrirlo en la aplicación de escritorio: usan el mismo formato.</p>
+
+      <section class="como" id="como">
+        <h2>Cómo funciona</h2>
+        <div class="como-grid">
+          <div class="como-text">
+            <h3><img src="assets/icons/filled_map.png" alt="" width="24" height="24">Grafo dirigido acíclico</h3>
+            <p>Cada arista tiene un peso positivo y el grafo no tiene ciclos. Por eso se puede ordenar de izquierda a derecha por capas, y cada arista nueva se rechaza si cerraría un ciclo.</p>
+
+            <h3><img src="assets/icons/redstone.png" alt="" width="24" height="24">Selección y relajación</h3>
+            <p>En cada paso Dijkstra toma el nodo no visitado con menor distancia y revisa sus aristas salientes. Si la ruta por ese nodo es más corta, actualiza la distancia y el predecesor. La tabla de la demo muestra ese estado paso a paso.</p>
+
+            <h3><img src="assets/icons/diamond.png" alt="" width="24" height="24">Caminos mínimos empatados</h3>
+            <p>Cuando dos rutas cuestan lo mismo, el programa guarda todos los predecesores y, al terminar, recorre la lista hacia atrás para listar cada camino mínimo. Con la opción “Forzar empate” el generador crea ese caso a propósito.</p>
+
+            <h3><img src="assets/icons/spyglass.png" alt="" width="24" height="24">Costo</h3>
+            <p>Con una cola de prioridad el algoritmo toma tiempo O((|V| + |E|) log |V|). Es correcto porque todos los pesos son positivos.</p>
+          </div>
+          <figure class="code">
+            <figcaption>dijkstra.py, el ciclo principal</figcaption>
+<pre><code><span class="k">while</span> pq:
+    d0, u = heapq.heappop(pq)
+    <span class="k">if</span> u <span class="k">in</span> visited:
+        <span class="k">continue</span>
+    visited.add(u)
+    <span class="k">for</span> v_node, w <span class="k">in</span> graph.adj[u]:
+        nd = d0 + w
+        <span class="k">if</span> nd &lt; dist[v_node]:
+            dist[v_node] = nd
+            preds[v_node] = [u]
+            heapq.heappush(pq, (nd, v_node))
+        <span class="k">elif</span> nd == dist[v_node]:
+            <span class="k">if</span> u <span class="k">not in</span> preds[v_node]:
+                preds[v_node].append(u)  <span class="c"># empate</span></code></pre>
+          </figure>
+        </div>
+      </section>
+
+      <section class="autores" id="autores">
+        <h2>Autores</h2>
+        <ul class="people">
+          <li>
+            <img src="assets/avatar_gegecam30.jpg" alt="" width="72" height="72">
+            <div>
+              <strong>gegecam30</strong>
+              <span>Desarrollo del proyecto</span>
+              <a href="https://github.com/gegecam30">Perfil en GitHub</a>
+            </div>
+          </li>
+          <li>
+            <img src="assets/avatar_TUXERO1986.jpg" alt="" width="72" height="72">
+            <div>
+              <strong>TUXERO1986</strong>
+              <span>Desarrollo del proyecto</span>
+              <a href="https://github.com/TUXERO1986">Perfil en GitHub</a>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <aside class="rail" aria-label="Proyectos y auspicios">
+      <div class="rail-inner">
+        <h2><img src="assets/icons/emerald.png" alt="" width="20" height="20">Proyectos y auspicios</h2>
+        <p>Este espacio es para otros proyectos de los autores. Si te interesa colaborar o apoyar alguno, escríbenos por GitHub.</p>
+        <div class="slot"><span>Espacio disponible</span></div>
+        <div class="slot"><span>Espacio disponible</span></div>
+        <div class="slot slot-small"><span>Espacio disponible</span></div>
+        <p class="rail-links"><a href="https://github.com/gegecam30">gegecam30</a><a href="https://github.com/TUXERO1986">TUXERO1986</a></p>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap footer-row">
+      <div>
+        <strong>DijkstraUPC</strong>
+        <p>Demostración web del programa en Python de Dijkstra sobre DAGs.</p>
+      </div>
+      <ul>
+        <li><a href="https://github.com/TUXERO1986/Proyecto_dijkstra_Mate_Computacional">Programa en Python</a></li>
+        <li><a href="https://github.com/gegecam30/DijkstraUPC">Código de esta página</a></li>
+      </ul>
+      <p class="legal">Los íconos de objetos son texturas de Minecraft (Mojang Studios), usadas solo como decoración. Este sitio no está afiliado a Mojang ni a Microsoft.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

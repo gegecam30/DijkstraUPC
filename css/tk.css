@@ -1,0 +1,104 @@
+/* Ventana de la demo: réplica de la interfaz Tkinter (tema claro de Windows y modo oscuro de la app) */
+.tkwin {
+  --w-bg: #f0f0f0; --w-fg: #000; --w-field: #fff; --w-btn: #e1e1e1; --w-btn-hover: #e5f1fb;
+  --w-btn-line: #adadad; --w-field-line: #7a7a7a; --w-frame-line: #dcdcdc; --w-disabled: #a0a0a0;
+  --w-accent: #0078d7; --w-head: #e1e1e1; --w-current-row: #ffe0b2; --w-title: #fff;
+  --w-hint: #333;
+  font: 400 12px/1.35 "Segoe UI", system-ui, sans-serif;
+  color: var(--w-fg);
+  background: var(--w-bg);
+  border: 1px solid #7f8a98;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 10px 30px rgba(15, 25, 40, 0.18);
+  overflow: hidden;
+  position: relative;
+}
+.tkwin.dark {
+  --w-bg: #1e1e1e; --w-fg: #e0e0e0; --w-field: #2d2d2d; --w-btn: #2d2d2d; --w-btn-hover: #3e3e42;
+  --w-btn-line: #3c3c3c; --w-field-line: #3c3c3c; --w-frame-line: #3c3c3c; --w-disabled: #6e6e6e;
+  --w-accent: #007acc; --w-head: #333333; --w-current-row: #5c3d11; --w-title: #2b2b2b; --w-hint: #cfcfcf;
+}
+
+/* barra de título de la ventana */
+.tk-titlebar { display: flex; align-items: center; gap: 8px; height: 30px; padding-left: 10px; background: var(--w-title); border-bottom: 1px solid var(--w-frame-line); }
+.tkwin.dark .tk-titlebar { color: #e0e0e0; }
+.tk-icon { width: 14px; height: 14px; background: linear-gradient(135deg, #3776ab 50%, #ffd43b 50%); border-radius: 2px; }
+.tk-title { flex: 1; font-size: 12px; }
+.tk-controls { display: flex; }
+.tk-controls svg { box-sizing: content-box; width: 10px; height: 10px; padding: 10px 17px; }
+
+/* controles */
+.tk-btn {
+  font: inherit; color: var(--w-fg); background: var(--w-btn); border: 1px solid var(--w-btn-line);
+  border-radius: 2px; padding: 3px 12px; min-height: 24px; cursor: default; white-space: nowrap;
+}
+.tk-btn:hover:not(:disabled) { background: var(--w-btn-hover); border-color: var(--w-accent); }
+.tk-btn:active:not(:disabled) { background: #cce4f7; }
+.tkwin.dark .tk-btn:active:not(:disabled) { background: #0d47a1; }
+.tk-btn:disabled { color: var(--w-disabled); background: transparent; border-color: var(--w-frame-line); }
+.tk-btn.primary { border-color: var(--w-accent); }
+.tk-btn.block { display: block; width: 100%; margin-top: 6px; }
+
+.tk-input {
+  font: inherit; color: var(--w-fg); background: var(--w-field); border: 1px solid var(--w-field-line);
+  border-radius: 1px; padding: 2px 4px; min-height: 22px;
+}
+.tk-input.narrow { width: 52px; }
+.tk-input.wide { width: 100%; margin-top: 6px; }
+.tk-input:disabled { color: var(--w-disabled); }
+select.tk-input { padding: 2px 2px; }
+.tkwin input[type="checkbox"], .tkwin input[type="radio"] { accent-color: var(--w-accent); margin: 0 4px 0 0; vertical-align: -2px; }
+.tk-inline, .tk-radio, .tk-check { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.tk-radio, .tk-check { gap: 0; }
+
+.tk-top { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; padding: 8px 8px 6px; }
+.tk-gap { width: 6px; }
+.tk-tools { margin-left: auto; display: inline-flex; gap: 4px; }
+.tk-spring { flex: 1; }
+
+.tk-frame { border: 1px solid var(--w-frame-line); border-radius: 2px; margin: 0 0 6px; padding: 4px 8px 8px; min-width: 0; }
+.tk-frame legend { padding: 0 4px; color: var(--w-fg); }
+.tk-options { margin: 2px 8px 4px; padding: 2px 8px 4px; }
+.tk-row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; padding: 2px 0; }
+
+.tk-main { display: grid; grid-template-columns: minmax(0, 1fr) 310px; min-height: 480px; }
+.tk-left { display: flex; flex-direction: column; min-width: 0; }
+.tk-zoom { display: flex; align-items: center; gap: 4px; padding: 2px 4px; flex-wrap: wrap; }
+.tk-hint { font-size: 11px; color: var(--w-hint); margin-left: 6px; }
+.tk-draw { margin-left: auto; display: inline-flex; gap: 4px; }
+.tk-draw[hidden], .tkwin [hidden] { display: none !important; }
+.tk-canvas { flex: 1; width: 100%; min-height: 440px; display: block; background: #fafafa; touch-action: none; user-select: none; }
+.tk-canvas.editing { cursor: crosshair; }
+
+.tk-right { padding: 4px 8px 0 6px; display: flex; flex-direction: column; min-width: 0; }
+.tk-right > div { display: flex; flex-direction: column; flex: 1; }
+.tk-frame.grow { flex: 1; display: flex; flex-direction: column; }
+
+.tk-tablewrap { background: var(--w-field); border: 1px solid var(--w-field-line); height: 232px; overflow: auto; }
+.tk-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.tk-table th { background: var(--w-head); font-weight: 700; padding: 3px 4px; border: 1px solid var(--w-frame-line); position: sticky; top: 0; }
+.tk-table td { text-align: center; padding: 1px 4px; font-size: 12px; }
+.tk-table tr.current td { background: var(--w-current-row); }
+
+.tk-text { background: var(--w-field); border: 1px solid var(--w-field-line); padding: 5px 6px; font-size: 12px; white-space: pre-wrap; overflow: auto; }
+.tk-text.msg { height: 56px; }
+.tk-text.result { flex: 1; min-height: 120px; }
+.tk-list { width: 100%; background: var(--w-field); color: var(--w-fg); border: 1px solid var(--w-field-line); margin-top: 6px; font: inherit; height: 230px; }
+
+.tk-nav { display: flex; align-items: center; gap: 4px; padding: 6px 8px; }
+
+/* cuadros de diálogo */
+.tkdlg { color: var(--w-fg); background: var(--w-bg); border: 1px solid var(--w-accent); padding: 0; min-width: 300px; max-width: 420px; font: inherit; margin: auto; box-shadow: 0 8px 28px rgba(0,0,0,.35); }
+.tkdlg::backdrop { background: rgba(0, 0, 0, 0.25); }
+.tkdlg-title { background: var(--w-title); padding: 6px 10px; border-bottom: 1px solid var(--w-frame-line); }
+.tkdlg-body { padding: 16px 16px 6px; white-space: pre-wrap; font-size: 12px; }
+.tkdlg-input { width: 90px; margin-top: 6px; text-align: center; }
+.tkdlg-err { color: #c62828; font-size: 11px; min-height: 16px; margin-top: 4px; }
+.tkwin.dark .tkdlg-err { color: #ff6b6b; }
+.tkdlg-actions { display: flex; justify-content: flex-end; gap: 6px; padding: 8px 12px 12px; }
+
+@media (max-width: 860px) {
+  .tk-main { grid-template-columns: 1fr; }
+  .tk-canvas { min-height: 380px; }
+  .tk-right { padding: 6px; }
+}

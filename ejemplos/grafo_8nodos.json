@@ -1,0 +1,108 @@
+{
+  "formato": "dijkstra-dag",
+  "version": 1,
+  "n": 8,
+  "aristas": [
+    {
+      "desde": "A",
+      "hasta": "B",
+      "peso": 4
+    },
+    {
+      "desde": "A",
+      "hasta": "C",
+      "peso": 5
+    },
+    {
+      "desde": "A",
+      "hasta": "D",
+      "peso": 3
+    },
+    {
+      "desde": "B",
+      "hasta": "E",
+      "peso": 4
+    },
+    {
+      "desde": "B",
+      "hasta": "C",
+      "peso": 2
+    },
+    {
+      "desde": "C",
+      "hasta": "F",
+      "peso": 4
+    },
+    {
+      "desde": "C",
+      "hasta": "E",
+      "peso": 4
+    },
+    {
+      "desde": "D",
+      "hasta": "G",
+      "peso": 6
+    },
+    {
+      "desde": "D",
+      "hasta": "C",
+      "peso": 3
+    },
+    {
+      "desde": "E",
+      "hasta": "H",
+      "peso": 5
+    },
+    {
+      "desde": "F",
+      "hasta": "H",
+      "peso": 4
+    },
+    {
+      "desde": "G",
+      "hasta": "F",
+      "peso": 2
+    },
+    {
+      "desde": "G",
+      "hasta": "H",
+      "peso": 8
+    }
+  ],
+  "origen": "A",
+  "destino": "H",
+  "posiciones": {
+    "A": [
+      -1,
+      0
+    ],
+    "B": [
+      -0.35,
+      0.7
+    ],
+    "C": [
+      -0.35,
+      0.0
+    ],
+    "D": [
+      -0.35,
+      -0.7
+    ],
+    "E": [
+      0.35,
+      0.7
+    ],
+    "F": [
+      0.35,
+      0.0
+    ],
+    "G": [
+      0.35,
+      -0.7
+    ],
+    "H": [
+      1,
+      0
+    ]
+  }
+}

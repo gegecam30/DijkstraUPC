@@ -1,0 +1,6 @@
+{
+  "name": "dijkstraupc",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test tests/nucleo.test.mjs" }
+}
