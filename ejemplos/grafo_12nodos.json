@@ -1,0 +1,164 @@
+{
+  "formato": "dijkstra-dag",
+  "version": 1,
+  "n": 12,
+  "aristas": [
+    {
+      "desde": "A",
+      "hasta": "B",
+      "peso": 4
+    },
+    {
+      "desde": "A",
+      "hasta": "C",
+      "peso": 2
+    },
+    {
+      "desde": "A",
+      "hasta": "D",
+      "peso": 6
+    },
+    {
+      "desde": "B",
+      "hasta": "E",
+      "peso": 7
+    },
+    {
+      "desde": "B",
+      "hasta": "F",
+      "peso": 4
+    },
+    {
+      "desde": "C",
+      "hasta": "B",
+      "peso": 1
+    },
+    {
+      "desde": "C",
+      "hasta": "F",
+      "peso": 6
+    },
+    {
+      "desde": "C",
+      "hasta": "G",
+      "peso": 5
+    },
+    {
+      "desde": "D",
+      "hasta": "G",
+      "peso": 2
+    },
+    {
+      "desde": "E",
+      "hasta": "H",
+      "peso": 3
+    },
+    {
+      "desde": "E",
+      "hasta": "I",
+      "peso": 6
+    },
+    {
+      "desde": "F",
+      "hasta": "E",
+      "peso": 2
+    },
+    {
+      "desde": "F",
+      "hasta": "I",
+      "peso": 5
+    },
+    {
+      "desde": "F",
+      "hasta": "J",
+      "peso": 7
+    },
+    {
+      "desde": "G",
+      "hasta": "J",
+      "peso": 3
+    },
+    {
+      "desde": "G",
+      "hasta": "K",
+      "peso": 6
+    },
+    {
+      "desde": "H",
+      "hasta": "L",
+      "peso": 7
+    },
+    {
+      "desde": "I",
+      "hasta": "H",
+      "peso": 1
+    },
+    {
+      "desde": "I",
+      "hasta": "L",
+      "peso": 4
+    },
+    {
+      "desde": "J",
+      "hasta": "L",
+      "peso": 6
+    },
+    {
+      "desde": "K",
+      "hasta": "L",
+      "peso": 4
+    }
+  ],
+  "origen": "A",
+  "destino": "L",
+  "posiciones": {
+    "A": [
+      -1.0,
+      0.0
+    ],
+    "B": [
+      -0.5,
+      0.7
+    ],
+    "C": [
+      -0.5,
+      0.0
+    ],
+    "D": [
+      -0.5,
+      -0.7
+    ],
+    "E": [
+      0.0,
+      0.7
+    ],
+    "F": [
+      0.0,
+      0.0
+    ],
+    "G": [
+      0.0,
+      -0.7
+    ],
+    "H": [
+      0.5,
+      0.95
+    ],
+    "I": [
+      0.5,
+      0.32
+    ],
+    "J": [
+      0.5,
+      -0.32
+    ],
+    "K": [
+      0.5,
+      -0.95
+    ],
+    "L": [
+      1.0,
+      0.0
+    ]
+  }
+}

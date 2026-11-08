@@ -88,6 +88,19 @@ test("caso del informe: d*=13, dos caminos y 23 pasos (mismo resultado que Pytho
   assert.equal(steps.at(-1).message, "Algoritmo finalizado. Distancia mínima A→H = 13");
 });
 
+test("grafo de 12 nodos: sin trayectorias cortas, d*=16, dos caminos y 35 pasos", () => {
+  const data = JSON.parse(readFileSync(new URL("../ejemplos/grafo_12nodos.json", import.meta.url)));
+  const { graph, source, target } = graphFromDict(data);
+  assert.ok(hopDistance(graph, source, target) >= 4);
+  const steps = runDijkstra(graph, source, target, graph.labels);
+  assert.equal(steps.length, 35);
+  const last = steps.at(-1);
+  assert.equal(last.dist[target], 16);
+  const { paths } = allMinPaths(last.preds, source, target, last.dist);
+  const names = paths.map((p) => p.map((i) => graph.labels[i]).join("")).sort();
+  assert.deepEqual(names, ["ACBFIL", "ACGJL"]);
+});
+
 test("JSON: ida y vuelta, ciclos y formato inválido", () => {
   const g = generateAdvancedDag(10, { source: 2, target: 7, forceTieOpt: true, minPaths: 2, wMax: 50, seed: 5 });
   const pos = {};

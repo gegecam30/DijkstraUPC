@@ -20,7 +20,7 @@ js/graph.js       grafo, generador y JSON            (graph_model.py)
 js/dijkstra.js    pasos de Dijkstra y backtracking   (dijkstra.py)
 js/render.js      dibujo SVG, zoom y gestos          (visualizer.py)
 js/app.js         interfaz y modos                   (ui.py)
-ejemplos/         grafo de ejemplo de 8 nodos
+ejemplos/         grafos de ejemplo de 8 y 12 nodos
 tests/            pruebas con node:test
 assets/           íconos y avatares
 ```
@@ -46,7 +46,7 @@ Requiere Node.js 18 o superior.
 node --test tests/nucleo.test.mjs
 ```
 
-Las pruebas comprueban el generador (DAG, saltos mínimos, grado máximo, empate), Dijkstra contra fuerza bruta y el caso del ejemplo (d* = 13, dos caminos, 23 pasos), igual que la versión de Python.
+Las pruebas comprueban el generador (DAG, saltos mínimos, grado máximo, empate), Dijkstra contra fuerza bruta y los dos ejemplos (8 nodos: d* = 13, dos caminos, 23 pasos; 12 nodos: d* = 16, dos caminos, 35 pasos), igual que la versión de Python.
 
 ## Créditos
 Los íconos de objetos son texturas de Minecraft (Mojang Studios), obtenidas de [PrismarineJS/minecraft-assets](https://github.com/PrismarineJS/minecraft-assets) y usadas solo como decoración. Este proyecto no está afiliado a Mojang ni a Microsoft.

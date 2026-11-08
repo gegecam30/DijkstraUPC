@@ -345,9 +345,9 @@ function onLoadFile(file) {
   reader.readAsText(file);
 }
 
-export async function loadExample() {
-  const res = await fetch("ejemplos/grafo_8nodos.json");
-  await loadFromData(await res.json(), "grafo_8nodos.json");
+export async function loadExample(nombre = "grafo_8nodos.json") {
+  const res = await fetch(`ejemplos/${nombre}`);
+  await loadFromData(await res.json(), nombre);
 }
 
 // ------------------------------------------------------------------ ejecución paso a paso
@@ -537,7 +537,7 @@ $("btnNext").onclick = onNext;
 $("btnEnd").onclick = onEnd;
 document.querySelectorAll("[data-load-example]").forEach((el) => el.addEventListener("click", (e) => {
   e.preventDefault();
-  loadExample();
+  loadExample(el.dataset.loadExample || undefined);
 }));
 
 setNavState(false);
