@@ -543,3 +543,4 @@ document.querySelectorAll("[data-load-example]").forEach((el) => el.addEventList
 setNavState(false);
 onNChanged();
 onModeChange();
+toggleDark(); // la página y la demo arrancan en modo oscuro
