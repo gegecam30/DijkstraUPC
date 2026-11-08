@@ -117,3 +117,7 @@ h3:first-child { margin-top: 0; }
   .rail-inner { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media (max-width: 560px) {
+  .header-row { flex-wrap: wrap; padding-block: 8px; }
+  .site-header nav { width: 100%; white-space: nowrap; overflow-x: auto; }
+}
