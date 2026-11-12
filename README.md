@@ -2,7 +2,6 @@
 
 Demostración web del visualizador de Dijkstra sobre grafos dirigidos acíclicos (DAG). Es una versión en JavaScript del programa en Python: mismos modos, mismos pasos y mismos mensajes.
 
-- Programa en Python: https://github.com/TUXERO1986/Proyecto_dijkstra_Mate_Computacional
 - Sitio: https://gegecam30.github.io/DijkstraUPC/
 
 ## Qué incluye
